@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { hashHistory, HashRouter, Redirect } from 'react-router-dom';
+import { hashHistory, HashRouter, Redirect, withRouter } from 'react-router-dom';
 import { Router, Route } from 'react-router';
 
 import IssueList from './IssueList.jsx';
@@ -14,7 +14,7 @@ const RoutedApp = () => (
         <Route exact path="/" render={() =>
             <Redirect to={'/issues'}></Redirect>}>
         </Route>
-        <Route exact path='/issues' component={IssueList} />
+        <Route exact path='/issues' component={withRouter(IssueList)} />
         <Route exact path='/issues/:id' component={IssueEdit} />
         {/* <Route exact path='*' component={NoMatch} /> */}
     </HashRouter>

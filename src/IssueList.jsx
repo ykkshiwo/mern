@@ -45,6 +45,7 @@ export default class IssueList extends React.Component {
     constructor() {
         super();
         this.state = { issues: [] };
+        this.setFilter = this.setFilter.bind(this);
         this.createIssue = this.createIssue.bind(this);
     }
 
@@ -62,6 +63,10 @@ export default class IssueList extends React.Component {
         }
         this.loadData();
     }
+
+    setFilter(query) {
+        this.props.router.push({ pathname: this.props.location.pathname, query });
+    };
 
     loadData() {
         console.log("开始请求原始数据");
@@ -115,7 +120,7 @@ export default class IssueList extends React.Component {
         return (
             <div>
                 <h1>This is ykk's place.</h1>
-                <IssueFilter />
+                <IssueFilter setFilter={this.setFilter} />
                 <hr />
                 <IssueTable issues={this.state.issues} />
                 <hr />
