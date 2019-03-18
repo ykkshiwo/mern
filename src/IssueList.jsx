@@ -65,11 +65,14 @@ export default class IssueList extends React.Component {
     }
 
     setFilter(query) {
-        this.props.router.push({ pathname: this.props.location.pathname, query });
+        // console.log(this.props.history);
+        // console.log({ pathname: this.props.location.pathname, query });
+        this.props.history.push({ pathname: '/issues' + "?status=" + query.status });
     };
 
     loadData() {
         console.log("开始请求原始数据");
+        console.log(this.props.location.search);
         fetch(`/api/issues${this.props.location.search}`).then(response => {
             console.log("原始数据请求成功");
             if (response.ok) {
