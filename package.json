@@ -25,6 +25,7 @@
     "babel-preset-react": "^6.24.1",
     "camelcase": "^5.2.0",
     "p-try": "^2.0.0",
+    "query-string": "^6.4.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-router": "^4.4.0",

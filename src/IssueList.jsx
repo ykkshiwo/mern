@@ -45,6 +45,7 @@ export default class IssueList extends React.Component {
     constructor() {
         super();
         this.state = { issues: [] };
+        this.choosePars = "ykk";
         this.setFilter = this.setFilter.bind(this);
         this.createIssue = this.createIssue.bind(this);
     }
@@ -55,7 +56,7 @@ export default class IssueList extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // console.log("以前的数据是: ", prevProps);
+        console.log("以前的数据是: ", prevProps);
         const oldQuery = prevProps.location.search;
         const newQuery = this.props.location.search;
         if (oldQuery === newQuery) {
@@ -65,13 +66,12 @@ export default class IssueList extends React.Component {
     }
 
     setFilter(query) {
-        // console.log(this.props.history);
-        // console.log({ pathname: this.props.location.pathname, query });
         this.props.history.push({ pathname: '/issues' + "?status=" + query.status });
     };
 
     loadData() {
         console.log("开始请求原始数据");
+        console.log(this.props.location);
         console.log(this.props.location.search);
         fetch(`/api/issues${this.props.location.search}`).then(response => {
             console.log("原始数据请求成功");
@@ -123,7 +123,7 @@ export default class IssueList extends React.Component {
         return (
             <div>
                 <h1>This is ykk's place.</h1>
-                <IssueFilter setFilter={this.setFilter} />
+                <IssueFilter setFilter={this.setFilter} choosePars={this.choosePars} initFilter={this.props.location.search} />
                 <hr />
                 <IssueTable issues={this.state.issues} />
                 <hr />

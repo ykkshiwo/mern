@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
+const path = require('path');
 
 const app = express();
 app.use(express.static('../statics'));
@@ -9,6 +10,9 @@ app.use(bodyParser.json());
 app.get('/api/issues', (req, res) => {
     const filter = {};
     if (req.query.status) filter.status = req.query.status;
+    if (req.query.effort_lte || req.query.effort_gte) filter.effort = {};
+    if (req.query.effort_lte) filter.effort.$lte = parseInt(req.query.effort_lte, 10);
+    if (req.query.effort_gte) filter.effort.$gte = parseInt(req.query.effort_gte, 10);
     console.log(filter);
     dbo.collection('issues').find(filter).toArray().then(issues => {
         const metadata = { total_count: issues.length };
@@ -33,6 +37,11 @@ app.post('/api/issues', (req, res) => {
     }).catch(err => {
         console.log(err);
     });
+})
+
+app.get('*', (req, res) => {
+    // res.send('success');
+    res.sendFile(path.resolve('../statics/index.html'));
 })
 
 let dbc, dbo;
