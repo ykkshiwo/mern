@@ -53,28 +53,31 @@ export default class IssueList extends React.Component {
 
     componentDidMount() {
         console.log("开始执行请求函数");
-        this.loadData();
+        this.loadData(this.props.location.search);
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("以前的数据是: ", prevProps);
         const oldQuery = prevProps.location.search;
         const newQuery = this.props.location.search;
+        console.log("以前的数据是: ", oldQuery);
+        console.log("现在的数据是: ", newQuery);
         if (oldQuery === newQuery) {
             return;
         }
-        this.loadData();
+        this.loadData(this.props.location.search);
     }
 
     setFilter(query) {
-        this.props.history.push({ pathname: '/issues?' + qs.stringify(query) });
+        // this.props.history.push({ pathname: '/issues?' + qs.stringify(query) });
+        console.log("query是： ", query);
+        this.loadData("?" + qs.stringify(query));
     };
 
-    loadData() {
+    loadData(q) {
         console.log("开始请求原始数据");
         console.log(this.props.location);
-        console.log(this.props.location.search);
-        fetch(`/api/issues${this.props.location.search}`).then(response => {
+        console.log("qqqqqq: ", q);
+        fetch(`/api/issues${q}`).then(response => {
             console.log("原始数据请求成功");
             if (response.ok) {
                 response.json().then(data => {
@@ -85,6 +88,7 @@ export default class IssueList extends React.Component {
                             issue.completionDate = new Date(issue.completionDate);
                         }
                     });
+                    console.log("最后现实的数据数据:", data.records);
                     this.setState({ issues: data.records });
                 });
             } else {

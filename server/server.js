@@ -8,6 +8,7 @@ app.use(express.static('../statics'));
 app.use(bodyParser.json());
 
 app.get('/api/issues', (req, res) => {
+    console.log("服务器收到请求。")
     const filter = {};
     if (req.query.status) filter.status = req.query.status;
     if (req.query.effort_lte || req.query.effort_gte) filter.effort = {};
