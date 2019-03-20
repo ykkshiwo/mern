@@ -46,8 +46,9 @@ export default class IssueFilter extends React.Component {
     applyFilter() {
         const newFilter = {};
         if (this.state.status) newFilter.status = this.state.status;
-        if (this.state.effort_gte) newFilter.status = this.state.effort_gte;
-        if (this.state.effort_lte) newFilter.status = this.state.effort_lte;
+        if (this.state.effort_gte) newFilter.effort_gte = this.state.effort_gte;
+        if (this.state.effort_lte) newFilter.effort_lte = this.state.effort_lte;
+        console.log("提交上去的数据：", newFilter);
         this.props.setFilter(newFilter);
     }
 
@@ -56,11 +57,13 @@ export default class IssueFilter extends React.Component {
     }
 
     onChangeStatus(e) {
+        console.log("选择器在变化：", e);
         this.setState({ status: e.target.value, changed: true });
     }
 
     onChangeEffortGte(e) {
         const effortString = e.target.value;
+        console.log("gte在变化：", effortString);
         if (effortString.match(/^\d*$/)) {
             this.setState({ effort_gte: e.target.value, changed: true });
         }
@@ -68,6 +71,7 @@ export default class IssueFilter extends React.Component {
 
     onChangeEffortLte(e) {
         const effortString = e.target.value;
+        console.log("lte在变化：", effortString);
         if (effortString.match(/^\d*$/)) {
             this.setState({ effort_lte: e.target.value, changed: true });
         }

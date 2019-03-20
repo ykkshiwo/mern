@@ -3,6 +3,7 @@ import IssueFilter from './IssueFilter.jsx'
 import React from 'react'
 import 'whatwg-fetch'
 import { Link } from 'react-router-dom';
+const qs = require('query-string');
 
 const IssueRow = (props) =>
     (
@@ -66,7 +67,7 @@ export default class IssueList extends React.Component {
     }
 
     setFilter(query) {
-        this.props.history.push({ pathname: '/issues' + "?status=" + query.status });
+        this.props.history.push({ pathname: '/issues?' + qs.stringify(query) });
     };
 
     loadData() {
