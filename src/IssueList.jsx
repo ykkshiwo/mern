@@ -68,9 +68,10 @@ export default class IssueList extends React.Component {
     }
 
     setFilter(query) {
-        // this.props.history.push({ pathname: '/issues?' + qs.stringify(query) });
+        console.log("this.props.history is 1: ", this.props.history);
+        this.props.history.replace('/issues?' + qs.stringify(query));
+        console.log("this.props.history is 2: ", this.props.history);
         console.log("query是： ", query);
-        this.loadData("?" + qs.stringify(query));
     };
 
     loadData(q) {

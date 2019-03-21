@@ -33,7 +33,7 @@ const RoutedApp = () => (
         </Route>
         <App>
             <Switch>
-                <Route exact path='/issues' component={withRouter(IssueList)} />
+                <Route exact path='/issues' component={IssueList} />
                 <Route exact path='/issues/:id' component={IssueEdit} />
                 <Route component={NoMatch} />
             </Switch>
