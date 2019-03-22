@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Server } from 'https';
+import NumInput from './NumInput.jsx';
 
 export default class IssueEdit extends React.Component {
     constructor() {
@@ -11,7 +12,7 @@ export default class IssueEdit extends React.Component {
                 completionDate: '', created: '',
             },
         };
-        this.change = this.change.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
@@ -19,24 +20,25 @@ export default class IssueEdit extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.params.id !== this.props.params.id) {
+        if (prevProps.match.params.id !== this.props.match.params.id) {
             this.loadData();
         }
     }
 
-    onChange(event) {
-        const issue = Object.assign({}, this.state.issue);
-        issue[event.target.name] = event.target.value;
+    onChange(event, convertedValue) {
+        const issue = Object.assign({}, this.state.issue);  //这里是什么意思？
+        const value = (convertedValue !== undefined) ? convertedValue : event.target.value;
+        issue[event.target.name] = value;
         this.setState({ issue });
     }
 
     loadData() {
-        fetch(`/api/issues/${this.props.params.id}`).then(response => {
+        fetch(`/api/issues/${this.props.match.params.id}`).then(response => {
             if (response.ok) {
                 response.json().then(issue => {
                     issue.created = new Date(issue.created).toDateString();
                     issue.completionDate = issue.completionDate != null ? new Date(issue.completionDate).toDateString() : '';
-                    issue.effort = issue.effort != null ? issue.effort.toString() : '';
+                    // issue.effort = issue.effort != null ? issue.effort.toString() : '';
                     this.setState({ issue });
                 })
             } else {
@@ -70,7 +72,7 @@ export default class IssueEdit extends React.Component {
                     <br />
                     Owner: <input name='owner' value={issue.owner} onChange={this.onChange} />
                     <br />
-                    Effort: <input size={5} name='effort' value={issue.effort} onChange={this.onChange} />
+                    Effort: <NumInput size={5} name='effort' value={issue.effort} onChange={this.onChange} />
                     <br />
                     Completion Date: <input name='completionDate' value={issue.completionDate} onChange={this.onChange} />
                     <br />
