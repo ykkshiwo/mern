@@ -39,8 +39,10 @@ export default class IssueEdit extends React.Component {
     }
 
     onChange(event, convertedValue) {
+        console.log("change is now from ....");
         const issue = Object.assign({}, this.state.issue);  //这里是什么意思？
         const value = (convertedValue !== undefined) ? convertedValue : event.target.value;
+        console.log("the value time is: ", value);
         issue[event.target.name] = value;
         console.log("the father issueEdit issue is: ", issue);
         this.setState({ issue });

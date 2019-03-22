@@ -16,12 +16,17 @@ export default class DateInput extends React.Component {
     }
 
     onFocus() {
+        console.log("get focus...");
         this.setState({ focused: true });
     }
 
     onBlur(e) {
+        console.log("lose focus...");
         const value = this.unformat(this.state.value);
+        console.log("is: ", this.state.value)
+        console.log("value is: ", value)
         const valid = this.state.value === '' || value != null;
+        console.log("valid date: ", valid);
         if (valid !== this.state.valid && this.props.onValidityChange) {
             this.props.onValidityChange(e, valid);
         }
@@ -30,13 +35,14 @@ export default class DateInput extends React.Component {
     }
 
     onChange(e) {
-        if (e.target.value.match(/^\d*$/)) {
+        console.log("changing...");
+        if (e.target.value.match(/^[\d-]*$/)) {
             this.setState({ value: e.target.value });
         }
     }
 
     displayFormat(date) {
-        console.log("this format of date is:",date);
+        console.log("this format of date is:", date);
         return (date != null) ? date.toString() : '';
     }
 
