@@ -25,6 +25,25 @@ app.get('/api/issues', (req, res) => {
     })
 });
 
+app.get('/api/issues/:id', (req, res) => {
+    let issueId;
+    try {
+        issueId = mn.ObjectId(req.params.id);
+    } catch (error) {
+        res.status(422).json({ message: `Invalid issue ID : ${error}` });
+    }
+
+    dbo.collection('issues').find({ _id: issueId }).limit(1).next()
+        .then(issue => {
+            if (!issue) res.status(404).json({ message: `No such issue: ${issueId}` });
+            else res.json(issue);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({ message: `Invalid server: ${error}` })
+        })
+})
+
 app.post('/api/issues', (req, res) => {
     const newIssue = req.body;
     // newIssue.id = issues.length + 1;
