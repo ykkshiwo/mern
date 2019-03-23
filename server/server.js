@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const path = require('path');
-const mn = require('mongodb')
+const mn = require('mongodb');
+const Issue = require('./issue.js');
 
 const app = express();
 app.use(express.static('../statics'));
@@ -59,6 +60,39 @@ app.post('/api/issues', (req, res) => {
         console.log(err);
     });
 })
+
+app.put('/api/issues/:id', (req, res) => {
+    let issueId;
+    try {
+        issueId = mn.ObjectId(req.params.id);
+    } catch (error) {
+        res.status(422).json({ message: `Invalid issue ID format: ${error}` });
+        return;
+    }
+
+    const issue = req.body;
+    delete issue._id;
+
+    const err = Issue.validateIssue(issue);
+    if (err) {
+        res.status(422).json({ message: `Invalid request: ${err}` });
+        return;
+    }
+    console.log("Update immed...");
+    console.log(Issue.convertIssue(issue));
+    dbo.collection('issues').update({ _id: issueId }, Issue.convertIssue(issue)).then(() => {
+        console.log("Update success...");
+        dbo.collection('issues').find({ _id: issueId }).limit(1)
+            .next()
+    })
+        .then(savedIssue => {
+            res.json(savedIssue);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({ message: `Internal Server Error: ${error}` });
+        });
+});
 
 app.get('*', (req, res) => {
     // res.send('success');
