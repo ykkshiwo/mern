@@ -39,6 +39,9 @@ module.exports = {
         proxy: {
             '/api/*': {
                 target: 'http://localhost:3000'
+            },
+            '/node_modules/*':{
+                target: 'http://localhost:3000'
             }
         },
         historyApiFallback: true,

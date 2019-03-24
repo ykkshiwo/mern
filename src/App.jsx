@@ -2,10 +2,11 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { hashHistory, HashRouter, Redirect, withRouter, Route, BrowserRouter, history, Switch } from 'react-router-dom';
+// import { Button, ButtonToolbar } from 'react-bootstrap';
 // import { Router, Route, } from 'react-router';
 
-import IssueList from './IssueList.jsx';
 import IssueEdit from './IssueEdit.jsx';
+import IssueList from './IssueList.jsx';
 
 const contentNode = document.getElementById("contents");
 const NoMatch = () => <p>Pagee Not Found</p>;
@@ -25,6 +26,19 @@ const App = (props) => (
         </div>
     </div>
 )
+
+class Testt extends React.Component {
+
+    constructor() {
+        super();
+    }
+
+    render() {
+        return (
+            <h1>hello world</h1>
+        );
+    }
+}
 
 const RoutedApp = () => (
     <BrowserRouter>

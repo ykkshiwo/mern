@@ -3,6 +3,7 @@ import IssueFilter from './IssueFilter.jsx'
 import React from 'react'
 import 'whatwg-fetch'
 import { Link, } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 const qs = require('query-string');
 
 const IssueRow = (props) => {
@@ -20,12 +21,11 @@ const IssueRow = (props) => {
             <td>{props.issue.completionDate ? props.issue.completionDate.toDateString() : ''}</td>
             <td>{props.issue.title}</td>
             <td>
-                <button onClick={onDeleteClick} >删除</button>
+                <span onClick={onDeleteClick} className="glyphicon glyphicon-trash"></span>
             </td>
         </tr>
     );
 };
-
 
 function IssueTable(props) {
     const IssueRows = props.issues.map(issue => <IssueRow key={issue._id} issue={issue} deleteIssue={props.deleteIssue} />);
@@ -86,14 +86,14 @@ export default class IssueList extends React.Component {
         if (oldQuery === newQuery) {
             return;
         }
-        this.loadData(this.props.location.search);
+        console.log("the search is: ", this.props.location.search);
+        this.loadData(this.props.location.search);   //页面渲染完成以后调用
     }
 
     setFilter(query) {
         console.log("this.props.history is 1: ", this.props.history);
         this.props.history.replace('/issues?' + qs.stringify(query));
         console.log("this.props.history is 2: ", this.props.history);
-        console.log("query是： ", query);
     };
 
     loadData(q) {
@@ -112,7 +112,7 @@ export default class IssueList extends React.Component {
                             issue.completionDate = new Date(issue.completionDate);
                         }
                     });
-                    console.log("最后现实的数据数据:", data.records);
+                    console.log("最后需要渲染的数据数据:", data.records);
                     this.setState({ issues: data.records });
                 });
             } else {

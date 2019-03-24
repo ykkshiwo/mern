@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "async": "^2.6.2",
+    "bootstrap": "^4.3.1",
     "co": "^4.6.0",
     "express": "^4.16.4",
     "mongodb": "^3.1.13",
@@ -27,6 +28,7 @@
     "p-try": "^2.0.0",
     "query-string": "^6.4.0",
     "react": "^16.8.4",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.8.4",
     "react-router": "^4.4.0",
     "react-router-dom": "^4.4.0",
