@@ -2,7 +2,7 @@ import IssueAdd from './IssueAdd.jsx'
 import IssueFilter from './IssueFilter.jsx'
 import React from 'react'
 import 'whatwg-fetch'
-import { Link, Button, Glyphicon } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 const qs = require('query-string');
 
 const IssueRow = (props) => {
@@ -19,13 +19,8 @@ const IssueRow = (props) => {
             <td>{props.issue.effort}</td>
             <td>{props.issue.completionDate ? props.issue.completionDate.toDateString() : ''}</td>
             <td>{props.issue.title}</td>
-            {/* {props.deleteIssue ? (
-                <td>
-                    <Button bsSize="xsmall" onClick={onDeleteClick}><Glyphicon glyph="trash" /></Button>
-                </td>
-            ) : null} */}
             <td>
-                <input onChange={onDeleteClick}></input>
+                <button onClick={onDeleteClick} >删除</button>
             </td>
         </tr>
     );
@@ -69,10 +64,12 @@ export default class IssueList extends React.Component {
     deleteIssue(id) {
         console.log("user want to delelte me```");
         fetch(`/api/issues/${id}`, { method: 'DELETE' }).then(response => {
-            console.log("the response data is: ", response.json());
-            // if (!response.ok) this.props.showError('Failed to delete issue');
-            // else this.loadData();
-            this.loadData();
+            console.log("the response data is: ", response);
+            if (!response.ok) this.props.showError('Failed to delete issue');
+            else {
+                console.log("start loaddata```")
+                this.loadData(this.props.location.search);
+            }
         });
     }
 
@@ -104,9 +101,10 @@ export default class IssueList extends React.Component {
         console.log(this.props.location);
         console.log("qqqqqq: ", q);
         fetch(`/api/issues${q}`).then(response => {
-            console.log("原始数据请求成功");
+            console.log("原始数据请求成功: ", response);
             if (response.ok) {
                 response.json().then(data => {
+                    console.log("请求的数据调回: ", data);
                     console.log(data._metadata.total_count);
                     data.records.forEach(issue => {
                         issue.created = new Date(issue.created);

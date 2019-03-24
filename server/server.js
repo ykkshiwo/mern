@@ -95,9 +95,11 @@ app.put('/api/issues/:id', (req, res) => {
 });
 
 app.delete('/api/issues/:id', (req, res) => {
+    console.log("server will delete...");
+    console.log("delete id is: ", req.params.id);
     let issueId;
     try {
-        issueId = mn.ObjectId(req.match.params.id);
+        issueId = mn.ObjectId(req.params.id);
         console.log("now delete data...", issueId);
     } catch (error) {
         res.status(422).json({ message: `Invalid issue ID format: ${error}` });
