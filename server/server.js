@@ -121,9 +121,8 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve('../statics/index.html'));
 })
 
-let dbc, dbo;
+let dbo;
 MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {
-    dbc = db;
     dbo = db.db('issuetracker');
     app.listen(3000, () => {
         console.log('App started on port 3000');
