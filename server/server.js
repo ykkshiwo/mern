@@ -7,6 +7,7 @@ const Issue = require('./issue.js');
 
 const app = express();
 app.use(express.static('../statics'));
+app.use(express.static('../node_modules/bootstrap/dist/css/'));
 app.use(bodyParser.json());
 
 app.get('/api/issues', (req, res) => {
