@@ -87,6 +87,7 @@ app.put('/api/issues/:id', (req, res) => {
             .next()
     })
         .then(savedIssue => {
+            console.log("保存的东西： ", savedIssue);
             res.json(savedIssue);
         })
         .catch(error => {

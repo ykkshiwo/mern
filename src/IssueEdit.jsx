@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Server } from 'https';
-import { FormGroup, FormControl, ControlLabel, ButtonToolbar, Button, Panel, Form, Col } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, ButtonToolbar, Button, Panel, Form, Col, Alert } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import NumInput from './NumInput.jsx';
 import DateInput from './DateInput.jsx';
+import Toast from './Toast.jsx';
 
 export default class IssueEdit extends React.Component {
     constructor() {
@@ -13,16 +14,24 @@ export default class IssueEdit extends React.Component {
             issue: {
                 _id: '', title: '', status: '', owner: '', effort: '',
                 completionDate: '', created: null,
+                toastVisible: false, toastMessage: '', toastType: 'success',
             },
             invalidFields: {},
+            showingValidation: false,
         };
         this.onChange = this.onChange.bind(this);
         this.onValidityChange = this.onValidityChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.showValidation = this.showValidation.bind(this);
+        this.dismissValidation = this.dismissValidation.bind(this);
+        this.showSuccess = this.showSuccess.bind(this);
+        this.showError = this.showError.bind(this);
+        this.dismissToast = this.dismissToast.bind(this);
     }
 
     onSubmit(event) {
         event.preventDefault();
+        this.showValidation();
         if (Object.keys(this.state.invalidFields).length !== 0) {
             return;
         }
@@ -31,23 +40,50 @@ export default class IssueEdit extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(this.state.issue),
         }).then(response => {
+            console.log(response);
             if (response.ok) {
+                this.showSuccess("我赢了。");
                 response.json().then(updatedIssue => {
+                    console.log(updatedIssue);
                     updatedIssue.created = new Date(updatedIssue.created);
                     if (updatedIssue.completionDate) {
                         updatedIssue.completionDate = new Date(updatedIssue.completionDate);
                     }
                     this.setState({ issue: updatedIssue });
-                    this.props.showSuccess('Updated issue successfully.');
+                    // this.props.showSuccess('Updated issue successfully.');
+                    alert("我赢了。")
+                    console.log("win")
+                    this.showSuccess("我赢了。");
                 });
             } else {
                 response.json().then(error => {
                     this.props.showError(`Failed to update issue: ${error.message}`);
+                    alert("失败")
                 });
             }
         }).catch(err => {
             this.props.showError(`Error in sending data to server: ${err.message}`);
         });
+    }
+
+    showValidation() {
+        this.setState({ showingValidation: true })
+    }
+
+    dismissValidation() {
+        this.setState({ showValidation: false })
+    }
+
+    showSuccess(message) {
+        this.setState({ toastVisible: true, toastMessage: message, toastType: 'success' });
+    }
+
+    showError(message) {
+        this.setState({ toastVisible: true, toastMessage: message, toastType: 'danger' });
+    }
+
+    dismissToast() {
+        this.setState({ toastVisible: false });
     }
 
     onValidityChange(event, valid) {
@@ -220,9 +256,15 @@ export default class IssueEdit extends React.Component {
                         </Col>
                     </FormGroup>
                     <FormGroup>
-                        <Col smOffset={3} sm={9}>{validationMessage}</Col>
+                        <Col smOffset={3} sm={9} lgOffset={6} lg={3}>{validationMessage}</Col>
                     </FormGroup>
                 </Form>
+                <Toast
+                    showing={this.state.toastVisible}
+                    message={this.state.toastMessage}
+                    onDismiss={this.dismissToast}
+                    bsStyle={this.state.toastType}
+                ></Toast>
             </Panel>
         );
     }
