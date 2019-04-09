@@ -43,6 +43,7 @@ export default class IssueEdit extends React.Component {
             console.log(response);
             if (response.ok) {
                 this.showSuccess("我赢了。");
+                console.log("发送回来的是：");
                 response.json().then(updatedIssue => {
                     console.log(updatedIssue);
                     updatedIssue.created = new Date(updatedIssue.created);

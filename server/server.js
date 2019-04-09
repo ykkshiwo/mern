@@ -81,19 +81,27 @@ app.put('/api/issues/:id', (req, res) => {
     }
     console.log("Update immed...");
     console.log(Issue.convertIssue(issue));
-    dbo.collection('issues').update({ _id: issueId }, Issue.convertIssue(issue)).then(() => {
-        console.log("Update success...");
-        dbo.collection('issues').find({ _id: issueId }).limit(1)
-            .next()
-    })
-        .then(savedIssue => {
-            console.log("保存的东西： ", savedIssue);
-            res.json(savedIssue);
+    // dbo.collection('issues').updateOne({ _id: issueId }, Issue.convertIssue(issue)).then(res => {
+    //     console.log("Update success...");
+    //     console.log(res);
+    //     dbo.collection('issues').find({ _id: issueId })
+    //         .next()
+    // })
+    //     .then(savedIssue => {
+    //         console.log("保存的东西： ", savedIssue);
+    //         res.json(savedIssue);
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //         res.status(500).json({ message: `Internal Server Error: ${error}` });
+    //     });
+    dbo.collection('issues').update({ _id: issueId }, Issue.convertIssue(issue), function (err, res1) {
+        console.log("更新成功。")
+        dbo.collection('issues').find({ _id: issueId }).toArray(function (err, res2) {
+            console.log(res2);
+            res.json(res2[0]);
         })
-        .catch(error => {
-            console.log(error);
-            res.status(500).json({ message: `Internal Server Error: ${error}` });
-        });
+    })
 });
 
 app.delete('/api/issues/:id', (req, res) => {
