@@ -1,4 +1,4 @@
-import IssueAdd from './IssueAdd.jsx'
+// import IssueAdd from './IssueAdd.jsx'
 import IssueFilter from './IssueFilter.jsx'
 import React from 'react'
 import 'whatwg-fetch'
@@ -157,7 +157,7 @@ export default class IssueList extends React.Component {
                 </Panel>
                 <IssueTable issues={this.state.issues} deleteIssue={this.deleteIssue} />
                 <hr />
-                <IssueAdd createIssue={this.createIssue} />
+                {/* <IssueAdd createIssue={this.createIssue} /> */}
             </div>
         )
     }

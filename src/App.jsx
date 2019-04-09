@@ -8,6 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import IssueEdit from './IssueEdit.jsx';
 import IssueList from './IssueList.jsx';
+import IssueAddNavItem from './IssueAddNavItem.jsx';
 
 const contentNode = document.getElementById("contents");
 const NoMatch = () => <p>Pagee Not Found</p>;
@@ -26,7 +27,8 @@ const Header = () => (
             </LinkContainer>
         </Nav>
         <Nav pullRight>
-            <NavItem><Glyphicon glyph="plus"> Create Issue </Glyphicon></NavItem>
+            {/* <NavItem><Glyphicon glyph="plus"> Create Issue </Glyphicon></NavItem> */}
+            {/* <IssueAddNavItem /> */}
             <NavDropdown id='user-dropdown' title={<Glyphicon glyph='option-horizontal' />} noCaret>
                 <MenuItem>Logout1</MenuItem>
                 <MenuItem>Logout2</MenuItem>
@@ -38,6 +40,8 @@ const Header = () => (
 const App = (props) => (
     <div>
         <Header />
+        <Button>dsadafs</Button>
+        <IssueAddNavItem />
         <div className="header">
             <h1>Issue Tracker</h1>
         </div>
