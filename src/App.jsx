@@ -2,7 +2,8 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { hashHistory, HashRouter, Redirect, withRouter, Route, BrowserRouter, history, Switch } from 'react-router-dom';
-// import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonToolbar, Nav, Navbar, NavItem, NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 // import { Router, Route, } from 'react-router';
 
 import IssueEdit from './IssueEdit.jsx';
@@ -11,18 +12,44 @@ import IssueList from './IssueList.jsx';
 const contentNode = document.getElementById("contents");
 const NoMatch = () => <p>Pagee Not Found</p>;
 
+const Header = () => (
+    <Navbar fluid>
+        <Navbar.Header>
+            <Navbar.Brand>Issue Tracker</Navbar.Brand>
+        </Navbar.Header>
+        <Nav>
+            <LinkContainer to="/issues">
+                <NavItem>Issues</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/reports">
+                <NavItem>Reports</NavItem>
+            </LinkContainer>
+        </Nav>
+        <Nav pullRight>
+            <NavItem><Glyphicon glyph="plus"> Create Issue </Glyphicon></NavItem>
+            <NavDropdown id='user-dropdown' title={<Glyphicon glyph='option-horizontal' />} noCaret>
+                <MenuItem>Logout1</MenuItem>
+                <MenuItem>Logout2</MenuItem>
+            </NavDropdown>
+        </Nav>
+    </Navbar>
+)
+
 const App = (props) => (
     <div>
+        <Header />
         <div className="header">
             <h1>Issue Tracker</h1>
         </div>
 
-        <div className="contents">
+        <div className="container-fluid">
             {props.children}
-        </div>
-
-        <div className="footer">
-            Full source code available at this <a href="http://www.baidu.com">nimei</a>
+            <hr />
+            <h5>
+                <small>
+                    please visit this <a href="https://www.baidu.com"> here </a>
+                </small>
+            </h5>
         </div>
     </div>
 )
