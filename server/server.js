@@ -56,6 +56,7 @@ app.post('/api/issues', (req, res) => {
     dbo.collection('issues').insertOne(newIssue).then(result =>
         dbo.collection('issues').find({ _id: result.insertedId }).limit(1).next()
     ).then(newIssue => {
+        console.log("添加的数据是： ", newIssue);
         res.json(newIssue);
     }).catch(err => {
         console.log(err);
@@ -81,19 +82,17 @@ app.put('/api/issues/:id', (req, res) => {
     }
     console.log("Update immed...");
     console.log(Issue.convertIssue(issue));
-    dbo.collection('issues').update({ _id: issueId }, Issue.convertIssue(issue)).then(() => {
-        console.log("Update success...");
-        dbo.collection('issues').find({ _id: issueId }).limit(1)
-            .next()
-    })
-        .then(savedIssue => {
-            console.log("保存的东西： ", savedIssue);
-            res.json(savedIssue);
-        })
-        .catch(error => {
-            console.log(error);
-            res.status(500).json({ message: `Internal Server Error: ${error}` });
-        });
+    dbo.collection('issues').update({ _id: issueId }, Issue.convertIssue(issue)).then(result => 
+        // console.log("Update success...");
+        // console.log(result);
+        dbo.collection('issues').find({ _id: issueId }).limit(1).next()
+    ).then(savedIssue => {
+        console.log("保存的东西： ", savedIssue);
+        res.json(savedIssue);
+    }).catch(error => {
+        console.log(error);
+        res.status(500).json({ message: `Internal Server Error: ${error}` });
+    });
 });
 
 app.delete('/api/issues/:id', (req, res) => {
