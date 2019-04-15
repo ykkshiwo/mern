@@ -10,21 +10,70 @@ app.use(express.static('../statics'));
 app.use(express.static('../node_modules/bootstrap/dist/css/'));
 app.use(bodyParser.json());
 
+// app.get('/api/issues', (req, res) => {
+//     console.log("服务器收到请求。")
+//     const filter = {};
+//     if (req.query.status) filter.status = req.query.status;
+//     if (req.query.effort_lte || req.query.effort_gte) filter.effort = {};
+//     if (req.query.effort_lte) filter.effort.$lte = parseInt(req.query.effort_lte, 10);
+//     if (req.query.effort_gte) filter.effort.$gte = parseInt(req.query.effort_gte, 10);
+//     console.log(filter);
+//     dbo.collection('issues').find(filter).toArray().then(issues => {
+//         const metadata = { total_count: issues.length };
+//         res.json({ _metadata: metadata, records: issues });
+//     }).catch(error => {
+//         console.log(error);
+//         res.status(500).json({ message: `internal server error: ${error}` });
+//     })
+// });
+
 app.get('/api/issues', (req, res) => {
-    console.log("服务器收到请求。")
     const filter = {};
     if (req.query.status) filter.status = req.query.status;
     if (req.query.effort_lte || req.query.effort_gte) filter.effort = {};
     if (req.query.effort_lte) filter.effort.$lte = parseInt(req.query.effort_lte, 10);
     if (req.query.effort_gte) filter.effort.$gte = parseInt(req.query.effort_gte, 10);
-    console.log(filter);
-    dbo.collection('issues').find(filter).toArray().then(issues => {
-        const metadata = { total_count: issues.length };
-        res.json({ _metadata: metadata, records: issues });
-    }).catch(error => {
-        console.log(error);
-        res.status(500).json({ message: `internal server error: ${error}` });
-    })
+    if (req.query.search) filter.$text = { $search: req.query.search };
+
+    if (req.query._summary === undefined) {
+        const offset = req.query._offset ? parseInt(req.query._offset, 10) : 0;
+        let limit = req.query._limit ? parseInt(req.query._limit, 10) : 20;
+        if (limit > 50) limit = 50;
+
+        const cursor = dbo.collection('issues').find(filter).sort({ _id: 1 })
+            .skip(offset)
+            .limit(limit);
+
+        let totalCount;
+        cursor.count(false).then(result => {
+            totalCount = result;
+            return cursor.toArray();
+        })
+            .then(issues => {
+                res.json({ metadata: { totalCount }, records: issues });
+            })
+            .catch(error => {
+                console.log(error);
+                res.status(500).json({ message: `Internal Server Error: ${error}` });
+            });
+    } else {
+        dbo.collection('issues').aggregate([
+            { $match: filter },
+            { $group: { _id: { owner: '$owner', status: '$status' }, count: { $sum: 1 } } },
+        ]).toArray()
+            .then(results => {
+                const stats = {};
+                results.forEach(result => {
+                    if (!stats[result._id.owner]) stats[result._id.owner] = {};
+                    stats[result._id.owner][result._id.status] = result.count;
+                });
+                res.json(stats);
+            })
+            .catch(error => {
+                console.log(error);
+                res.status(500).json({ message: `Internal Server Error: ${error}` });
+            });
+    }
 });
 
 app.get('/api/issues/:id', (req, res) => {
@@ -82,7 +131,7 @@ app.put('/api/issues/:id', (req, res) => {
     }
     console.log("Update immed...");
     console.log(Issue.convertIssue(issue));
-    dbo.collection('issues').update({ _id: issueId }, Issue.convertIssue(issue)).then(result => 
+    dbo.collection('issues').update({ _id: issueId }, Issue.convertIssue(issue)).then(result =>
         // console.log("Update success...");
         // console.log(result);
         dbo.collection('issues').find({ _id: issueId }).limit(1).next()

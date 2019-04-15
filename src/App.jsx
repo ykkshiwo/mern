@@ -9,6 +9,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import IssueEdit from './IssueEdit.jsx';
 import IssueList from './IssueList.jsx';
 import IssueAddNavItem from './IssueAddNavItem.jsx';
+import IssueReport from './IssueReport.jsx';
 
 const contentNode = document.getElementById("contents");
 const NoMatch = () => <p>Pagee Not Found</p>;
@@ -79,6 +80,7 @@ const RoutedApp = () => (
         <App>
             <Switch>
                 <Route exact path='/issues' component={IssueList} />
+                <Route exact path='/reports' component={IssueReport} />
                 <Route exact path='/issues/:id' component={IssueEdit} />
                 <Route component={NoMatch} />
             </Switch>

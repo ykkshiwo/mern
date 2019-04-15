@@ -105,7 +105,7 @@ export default class IssueList extends React.Component {
             if (response.ok) {
                 response.json().then(data => {
                     console.log("请求的数据调回: ", data);
-                    console.log(data._metadata.total_count);
+                    // console.log(data._metadata.total_count);
                     data.records.forEach(issue => {
                         issue.created = new Date(issue.created);
                         if (issue.completionDate) {
