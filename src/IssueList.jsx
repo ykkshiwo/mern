@@ -93,6 +93,7 @@ export default class IssueList extends React.Component {
     setFilter(query) {
         console.log("this.props.history is 1: ", this.props.history);
         this.props.history.replace('/issues?' + qs.stringify(query));
+        console.log("url即将替换为：", '/issues?' + qs.stringify(query));
         console.log("this.props.history is 2: ", this.props.history);
     };
 
@@ -103,6 +104,7 @@ export default class IssueList extends React.Component {
         fetch(`/api/issues${q}`).then(response => {
             console.log("原始数据请求成功: ", response);
             if (response.ok) {
+                console.log("返回的response数据是： ", response);
                 response.json().then(data => {
                     console.log("请求的数据调回: ", data);
                     // console.log(data._metadata.total_count);
