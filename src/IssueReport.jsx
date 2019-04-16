@@ -42,8 +42,8 @@ class IssueReport extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const oldQuery = prevProps.location.query;
-        const newQuery = this.props.location.query;
+        const oldQuery = prevProps.location.search;
+        const newQuery = this.props.location.search;
         if (oldQuery.status === newQuery.status
             && oldQuery.effort_gte === newQuery.effort_gte
             && oldQuery.effort_lte === newQuery.effort_lte) {
@@ -53,7 +53,7 @@ class IssueReport extends React.Component {
     }
 
     setFilter(query) {
-        this.props.router.push({ pathname: this.props.location.pathname, query });
+        this.props.router.push({ pathname: this.props.location.pathname, search });
     }
 
     loadData() {
@@ -69,7 +69,7 @@ class IssueReport extends React.Component {
         return (
             <div>
                 <Panel collapsible header="Filter">
-                    <IssueFilter setFilter={this.setFilter} initFilter={this.props.location.query} />
+                    <IssueFilter setFilter={this.setFilter} initFilter={this.props.location.search} />
                 </Panel>
                 <Table bordered condensed hover responsive>
                     <thead>
@@ -99,7 +99,8 @@ class IssueReport extends React.Component {
 //     initialState: React.PropTypes.object,
 // };
 
-const IssueReportWithToast = withToast(IssueReport);
-IssueReportWithToast.dataFetcher = IssueReport.dataFetcher;
+// const IssueReportWithToast = withToast(IssueReport);
+// IssueReportWithToast.dataFetcher = IssueReport.dataFetcher;
 
-export default IssueReportWithToast;
+// export default IssueReportWithToast;
+export default IssueReport;
