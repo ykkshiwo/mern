@@ -75,7 +75,7 @@ export default class IssueList extends React.Component {
 
     componentDidMount() {
         console.log("开始执行请求函数");
-        this.loadData("url参数中的location.search", this.props.location.search);
+        this.loadData(this.props.location.search);
     }
 
     componentDidUpdate(prevProps, prevState) {
