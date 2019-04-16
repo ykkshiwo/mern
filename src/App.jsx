@@ -29,7 +29,7 @@ const Header = () => (
         </Nav>
         <Nav pullRight>
             {/* <NavItem><Glyphicon glyph="plus"> Create Issue </Glyphicon></NavItem> */}
-            {/* <IssueAddNavItem /> */}
+            <IssueAddNavItem />
             <NavDropdown id='user-dropdown' title={<Glyphicon glyph='option-horizontal' />} noCaret>
                 <MenuItem>Logout1</MenuItem>
                 <MenuItem>Logout2</MenuItem>
@@ -41,8 +41,8 @@ const Header = () => (
 const App = (props) => (
     <div>
         <Header />
-        <Button>dsadafs</Button>
-        <IssueAddNavItem />
+        {/* <Button>dsadafs</Button> */}
+        {/* <IssueAddNavItem /> */}
         <div className="header">
             <h1>Issue Tracker</h1>
         </div>

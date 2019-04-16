@@ -10,40 +10,27 @@ class IssueAddNavItem extends React.Component {
       showing: false,
       test: 'are you',
     };
-    this.v = 1;
+    this.need_close = false;
     this.showModals = this.showModals.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.submit = this.submit.bind(this);
-    this.change = this.change.bind(this);
   }
 
   showModals() {
-    if (this.v % 2 == 1) {
-      this.setState({ showing: true });
+    console.log("点击显示");
+    console.log(this.need_close);
+    if (this.need_close) {
+      this.need_close = false;
+      return;
     } else {
-      this.setState({ showing: false });
+      this.setState({ showing: true });
     }
-    this.v = this.v + 1;
-    console.log(this.v);
   }
 
   hideModal() {
     console.log("关掉这个恶心的模态框。");
-    this.setState({});
-    const that = this;
-    setTimeout(function () {
-      console.log(that.state);
-    }, 5000);
-  }
-
-  change() {
-    console.log("改变");
-    this.setState({ test: 'ccc', showing: false })
-    const that = this;
-    setTimeout(function () {
-      console.log(that.state);
-    }, 5000);
-    console.log(this);
+    this.setState({ showing: false });
+    this.need_close = true;
   }
 
   submit(e) {
@@ -78,8 +65,8 @@ class IssueAddNavItem extends React.Component {
 
   render() {
     return (
-      <Button onClick={this.showModals}>Create Issue
-          <Modal show={this.state.showing} onHide={this.change}>
+      <NavItem onClick={this.showModals}><Glyphicon glyph="plus" />Create Issue
+          <Modal show={this.state.showing} onHide={this.hideModal}>
           <Modal.Header closeButton>
             <Modal.Title>Create Issue</Modal.Title>
           </Modal.Header>
@@ -91,21 +78,21 @@ class IssueAddNavItem extends React.Component {
               </FormGroup>
               <FormGroup>
                 <ControlLabel>Owner</ControlLabel>
-                <FormControl name="owner" onChange={this.change} />
+                <FormControl name="owner" />
               </FormGroup>
             </Form>
-            <input onClick={this.change}></input>
-            <button onClick={this.change}>Close</button>
-            <Button variant="secondary" onClick={() => { console.log("我要直接实现"); this.setState({ showing: false }) }}>关闭</Button>
+            {/* <input onClick={this.change}></input> */}
+            {/* <button onClick={this.change}>Close</button> */}
+            {/* <Button variant="secondary" onClick={() => { console.log("我要直接实现"); this.setState({ showing: false }) }}>关闭</Button> */}
           </Modal.Body>
           <Modal.Footer>
             {/* <Button type="button" bsStyle="primary" onClick={this.submit}>Submit</Button>
                 <Button bsStyle="link" onClick={this.change}>Cancel</Button> */}
-            <Button variant="secondary" onClick={this.change}>Close</Button>
+            <Button variant="secondary" onClick={this.hideModal}>Close</Button>
             <Button variant="primary" onClick={this.submit}>Save Changes</Button>
           </Modal.Footer>
         </Modal>
-      </Button>
+      </NavItem>
     );
   }
 }
