@@ -51,6 +51,7 @@ app.get('/api/issues', (req, res) => {
             return cursor.toArray();
         })
             .then(issues => {
+                console.log("查询出的数据： ", issues);
                 res.json({ metadata: { totalCount }, records: issues });
             })
             .catch(error => {

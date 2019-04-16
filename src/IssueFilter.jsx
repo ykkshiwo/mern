@@ -26,7 +26,7 @@ export default class IssueFilter extends React.Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.log("输出 newProps：", newProps)
+        console.log("输出 newProps：", newProps);
         this.setState({
             status: this.params.status || '',
             effort_gte: this.params.effort_gte || '',
