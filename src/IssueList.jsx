@@ -3,7 +3,7 @@ import IssueFilter from './IssueFilter.jsx'
 import React from 'react'
 import 'whatwg-fetch'
 import { Link, } from 'react-router-dom';
-import { Button, Glyphicon, Table, Panel } from 'react-bootstrap';
+import { Button, Glyphicon, Table, Panel, Pagination } from 'react-bootstrap';
 const qs = require('query-string');
 
 const IssueRow = (props) => {
@@ -50,15 +50,59 @@ function IssueTable(props) {
     )
 }
 
+const PAGE_SIZE = 10;
+
 export default class IssueList extends React.Component {
 
-    constructor() {
-        super();
-        this.state = { issues: [] };
-        this.choosePars = "ykk";
+    static dataFetcher({ urlBase, location }) {
+        const query = Object.assign({}, location.query);
+        const pageStr = query._page;
+        if (pageStr) {
+            delete query._page;
+            query._offset = (parseInt(pageStr, 10) - 1) * PAGE_SIZE;
+        }
+        query._limit = PAGE_SIZE;
+        const search = Object.keys(query).map(k => `${k}=${query[k]}`).join('&');
+        return fetch(`${urlBase || ''}/api/issues?${search}`).then(response => {
+            if (!response.ok) return response.json().then(error => Promise.reject(error));
+            return response.json().then(data => ({ IssueList: data }));
+        });
+    }
+
+    // constructor() {
+    //     super();
+    //     this.state = { issues: [] };
+    //     this.choosePars = "ykk";
+    //     this.setFilter = this.setFilter.bind(this);
+    //     this.createIssue = this.createIssue.bind(this);
+    //     this.deleteIssue = this.deleteIssue.bind(this);
+    // }
+
+    constructor(props, context) {
+        super(props, context);
+        console.log("context的值是：", context);
+        // const data = context.initialState.IssueList ? context.initialState.IssueList
+        //   : { metadata: { totalCount: 0 }, records: [] };
+        // const issues = data.records;
+        // issues.forEach(issue => {
+        //   issue.created = new Date(issue.created);
+        //   if (issue.completionDate) {
+        //     issue.completionDate = new Date(issue.completionDate);
+        //   }
+        // });
+        this.state = {
+            issues: [],
+            //   totalCount: data.metadata.totalCount,
+        };
+
         this.setFilter = this.setFilter.bind(this);
-        this.createIssue = this.createIssue.bind(this);
+        this.selectPage = this.selectPage.bind(this);
         this.deleteIssue = this.deleteIssue.bind(this);
+    }
+
+    selectPage(eventKey) {
+        const query = Object.assign(this.props.location.query, { _page: eventKey });
+        this.props.router.push({ pathname: this.props.location.pathname, query });
     }
 
     deleteIssue(id) {
