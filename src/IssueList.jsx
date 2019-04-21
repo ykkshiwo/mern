@@ -52,7 +52,7 @@ function IssueTable(props) {
 
 const PAGE_SIZE = 10;
 
-export default class IssueList extends React.Component {
+class IssueList extends React.Component {
 
     static dataFetcher({ urlBase, location }) {
         const query = Object.assign({}, location.query);
