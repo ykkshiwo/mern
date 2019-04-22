@@ -3,7 +3,8 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        app: './src/App.jsx',
+        // app: './src/App.jsx',
+        app: './client/Client.jsx',
         vendor: ['react', 'react-dom', 'whatwg-fetch', 'react-router-dom', 'react-router']
     },
     output: {
@@ -37,9 +38,12 @@ module.exports = {
         port: 8000,
         contentBase: 'statics',
         proxy: {
-            '/api/*': {
+            '**': {
                 target: 'http://localhost:3000'
             },
+            // '/api/*': {
+            //     target: 'http://localhost:3000'
+            // },
             '/node_modules/*':{
                 target: 'http://localhost:3000'
             }

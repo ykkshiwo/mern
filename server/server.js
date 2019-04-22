@@ -11,6 +11,8 @@ app.use(express.static('../statics'));
 app.use(express.static('../node_modules/bootstrap/dist/css/'));
 app.use(bodyParser.json());
 
+import renderedPageRouter from './renderedPageRouter.jsx';
+
 // app.get('/api/issues', (req, res) => {
 //     console.log("服务器收到请求。")
 //     const filter = {};
@@ -168,10 +170,12 @@ app.delete('/api/issues/:id', (req, res) => {
         });
 });
 
-app.get('*', (req, res) => {
-    // res.send('success');
-    res.sendFile(path.resolve('../statics/index.html'));
-})
+// app.get('*', (req, res) => {
+//     // res.send('success');
+//     res.sendFile(path.resolve('../statics/index.html'));
+// })
+
+app.use('/', renderedPageRouter);
 
 let dbo;
 MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {
