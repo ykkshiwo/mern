@@ -30,6 +30,10 @@ import renderedPageRouter from './renderedPageRouter.jsx';
 //     })
 // });
 
+app.get('/app.js',(req, res) => {
+    res.sendFile(path.resolve('../mern/statics/app.js'));
+})
+
 app.get('/api/issues', (req, res) => {
     const filter = {};
     if (req.query.status) filter.status = req.query.status;
@@ -175,7 +179,7 @@ app.delete('/api/issues/:id', (req, res) => {
 //     res.sendFile(path.resolve('../statics/index.html'));
 // })
 
-app.use('/', renderedPageRouter);
+app.use('/123', renderedPageRouter);
 
 let dbo;
 MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {

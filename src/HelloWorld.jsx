@@ -7,6 +7,7 @@ export default class HelloWorld extends React.Component {
     }
 
     componentDidMount() {
+        console.log("你妹啊，你还好吧");
         setTimeout(() => {
             console.log("有反应···");
             this.setState({ addressee: 'Universes' });
