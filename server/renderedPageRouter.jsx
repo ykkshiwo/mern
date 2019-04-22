@@ -10,7 +10,7 @@ import HelloWorld from '../src/HelloWorld.jsx';
 const renderedPageRouter = new Router();
 
 renderedPageRouter.get('*', (req, res) => {
-    const initialState = { addressee: 'Uni' };
+    const initialState = { addressee: 'Unisd' };
     const html = renderToString(<HelloWorld {...initialState} />);
     res.send(template(html));
 });
