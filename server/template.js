@@ -14,7 +14,7 @@ export default function template(body, initialState) {
   
   <body>
     <div id="contents">${body}</div>    <!-- this is where our component will appear -->
-    <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
+    <script>window.__INTIAL_STATE__ = ${JSON.stringify(initialState)};</script>
     <script src="/vendor.js"></script>
     <script src="/app.js"></script>
     <script src="/config.js"></script>

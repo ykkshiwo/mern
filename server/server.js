@@ -7,7 +7,7 @@ const mn = require('mongodb');
 const Issue = require('./issue.js');
 
 const app = express();
-app.use(express.static('../statics'));
+app.use(express.static('statics'));  //使用钩子函数后根目录是d://mern
 app.use(express.static('../node_modules/bootstrap/dist/css/'));
 app.use(bodyParser.json());
 
@@ -31,7 +31,8 @@ import renderedPageRouter from './renderedPageRouter.jsx';
 // });
 
 app.get('/app.js',(req, res) => {
-    res.sendFile(path.resolve('../mern/statics/app.js'));
+    console.log(path.resolve('static'));
+    // res.sendFile(path.resolve('../mern/statics/app.js'));
 })
 
 app.get('/api/issues', (req, res) => {
@@ -175,11 +176,11 @@ app.delete('/api/issues/:id', (req, res) => {
 });
 
 // app.get('*', (req, res) => {
-//     // res.send('success');
+//     res.send('success');
 //     res.sendFile(path.resolve('../statics/index.html'));
 // })
 
-app.use('/123', renderedPageRouter);
+app.get('/1234', renderedPageRouter);
 
 let dbo;
 MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {
