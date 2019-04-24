@@ -10,7 +10,7 @@ import HelloWorld from '../src/HelloWorld.jsx';
 const renderedPageRouter = new Router();
 
 renderedPageRouter.get('*', (req, res) => {
-    const initialState = { addressee: '初始状态···' };
+    const initialState = { addressee: '初始状态tai···' };
     const html = renderToString(<HelloWorld {...initialState} />);
     res.send(template(html, initialState));
 });

@@ -41,9 +41,18 @@
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "babel static --presets react,es2015 --out-dir static",
-    "watch": "babel static --presets react,es2015 --out-dir static -watch"
+    "compile1": "babel static --presets react,es2015 --out-dir static",
+    "watch1": "babel static --presets react,es2015 --out-dir static -watch",
+    "compile-server": "webpack --config webpack.server-config.js",
+    "watch-server": "webpack --config webpack.server-config.js --watch",
+    "start-hook": "nodemon -e js,jsx -w server,src server/start_hook.js",
+    "compile": "webpack",
+    "watch": "webpack-dev-server --hot --inline",
+    "start": "node dist/app.bundle.js",
+    "dev-all": "npm run watch & npm run watch-server",
+    "dev-all-hook": "npm run watch & npm run start-hook",
+    "lint": "eslint --ext js,jsx src server webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC"

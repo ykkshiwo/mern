@@ -1,0 +1,2 @@
+exports.id=0,exports.modules={9:function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var d=o(a(2)),r=a(10),u=(a(11),o(a(3))),l=o(a(12)),n=o(a(13));function o(e){return e&&e.__esModule?e:{default:e}}var f=new u.default;f.get("*",function(e,t){var a={addressee:"初始状态taitaitaihello···"},u=(0,r.renderToString)(d.default.createElement(n.default,a));t.send((0,l.default)(u,a))}),t.default=f}};
+//# sourceMappingURL=0.058abc9c711b01a9188b.hot-update.js.map

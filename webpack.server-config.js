@@ -2,9 +2,10 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
+    target: 'node',
     entry: {
         // app: './src/App.jsx',
-        app: './server/server.js',
+        app: ['./server/index.js','./node_modules/webpack/hot/poll?1000']
         // vendor: ['react', 'react-dom', 'whatwg-fetch', 'react-router-dom', 'react-router']
     },
     output: {
@@ -36,10 +37,7 @@ module.exports = {
         ]
     },
     plugins: [
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'vendor',
-        //     filename: 'vendor.bundle.js',
-        // }),
+        new webpack.HotModuleReplacementPlugin(),
     ],
     // optimization: {
     //     splitChunks: {
@@ -47,21 +45,21 @@ module.exports = {
     //         filename: '[name].js',
     //     }
     // },
-    devServer: {
-        port: 8000,
-        contentBase: 'statics',
-        proxy: {
-            '**': {
-                target: 'http://localhost:3000'
-            },
-            // '/api/*': {
-            //     target: 'http://localhost:3000'
-            // },
-            '/node_modules/*': {
-                target: 'http://localhost:3000'
-            }
-        },
-        historyApiFallback: true,
-    },
+    // devServer: {
+    //     port: 8000,
+    //     contentBase: 'statics',
+    //     proxy: {
+    //         '**': {
+    //             target: 'http://localhost:3000'
+    //         },
+    //         // '/api/*': {
+    //         //     target: 'http://localhost:3000'
+    //         // },
+    //         '/node_modules/*': {
+    //             target: 'http://localhost:3000'
+    //         }
+    //     },
+    //     historyApiFallback: true,
+    // },
     devtool: 'source-map'
 }

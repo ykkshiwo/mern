@@ -183,11 +183,17 @@ app.delete('/api/issues/:id', (req, res) => {
 app.get('/1234', renderedPageRouter);
 
 let dbo;
-MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {
-    dbo = db.db('issuetracker');
-    app.listen(3000, () => {
-        console.log('App started on port 3000');
-    });
-}).catch(error => {
-    console.log('ERROR:', error);
-});
+// MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {
+//     dbo = db.db('issuetracker');
+//     app.listen(3000, () => {
+//         console.log('App started on port 3000');
+//     });
+// }).catch(error => {
+//     console.log('ERROR:', error);
+// });
+
+function setDb(newDb) {
+    dbo = newDb;
+  }
+  
+  export { app, setDb };

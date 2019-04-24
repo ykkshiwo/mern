@@ -1,0 +1,2 @@
+exports.id=0,exports.modules={9:function(e,t,d){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=f(d(2)),u=d(10),a=(d(11),f(d(3))),n=f(d(12)),l=f(d(13));function f(e){return e&&e.__esModule?e:{default:e}}var o=new a.default;o.get("*",function(e,t){var d={addressee:"初始状态tai···"},a=(0,u.renderToString)(r.default.createElement(l.default,d));t.send((0,n.default)(a,d))}),t.default=o}};
+//# sourceMappingURL=0.876bcb0a26c49f9e7faf.hot-update.js.map

@@ -9,7 +9,7 @@ export default class HelloWorld extends React.Component {
     componentDidMount() {
         console.log("你妹啊，你还好吧");
         setTimeout(() => {
-            console.log("有反应···");
+            console.log("有反应···aaa");
             this.setState({ addressee: '3秒后的状态' });
         }, 3000);
     }
