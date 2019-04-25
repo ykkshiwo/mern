@@ -180,7 +180,7 @@ app.delete('/api/issues/:id', (req, res) => {
 //     res.sendFile(path.resolve('../statics/index.html'));
 // })
 
-app.get('/1234', renderedPageRouter);
+app.get('/', renderedPageRouter);
 
 let dbo;
 // MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {

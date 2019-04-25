@@ -59,33 +59,35 @@ const App = (props) => (
     </div>
 )
 
-class Testt extends React.Component {
+// class Testt extends React.Component {
 
-    constructor() {
-        super();
-    }
+//     constructor() {
+//         super();
+//     }
 
-    render() {
-        return (
-            <h1>hello world</h1>
-        );
-    }
-}
+//     render() {
+//         return (
+//             <h1>hello world</h1>
+//         );
+//     }
+// }
 
-const RoutedApp = () => (
-    <BrowserRouter>
-        <Route exact path="/" render={() =>
-            <Redirect to={'/issues'}></Redirect>}>
-        </Route>
-        <App>
-            <Switch>
-                <Route exact path='/issues' component={IssueList} />
-                <Route exact path='/reports' component={IssueReport} />
-                <Route exact path='/issues/:id' component={IssueEdit} />
-                <Route component={NoMatch} />
-            </Switch>
-        </App>
-    </BrowserRouter>
-)
+// const RoutedApp = () => (
+//     <BrowserRouter>
+//         <Route exact path="/" render={() =>
+//             <Redirect to={'/issues'}></Redirect>}>
+//         </Route>
+//         <App>
+//             <Switch>
+//                 <Route exact path='/issues' component={IssueList} />
+//                 <Route exact path='/reports' component={IssueReport} />
+//                 <Route exact path='/issues/:id' component={IssueEdit} />
+//                 <Route component={NoMatch} />
+//             </Switch>
+//         </App>
+//     </BrowserRouter>
+// )
 
-ReactDOM.render(<RoutedApp />, contentNode);
+// ReactDOM.render(<RoutedApp />, contentNode);
+
+export default App;

@@ -5,7 +5,7 @@ module.exports = {
     entry: {
         // app: './src/App.jsx',
         app: './client/Client.jsx',
-        vendor: ['react', 'react-dom', 'whatwg-fetch', 'react-router-dom', 'react-router']
+        vendor: ['react', 'react-dom', 'isomorphic-fetch', 'react-router-dom', 'react-router']
     },
     output: {
         path: path.resolve(__dirname, "statics"),
