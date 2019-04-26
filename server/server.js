@@ -137,7 +137,7 @@ app.put('/api/issues/:id', (req, res) => {
     if (err) {
         res.status(422).json({ message: `Invalid request: ${err}` });
         return;
-    }
+    } 
     console.log("Update immed...");
     console.log(Issue.convertIssue(issue));
     dbo.collection('issues').update({ _id: issueId }, Issue.convertIssue(issue)).then(result =>
@@ -180,7 +180,10 @@ app.delete('/api/issues/:id', (req, res) => {
 //     res.sendFile(path.resolve('../statics/index.html'));
 // })
 
-app.get('/', renderedPageRouter);
+app.get('/fwq', renderedPageRouter);
+app.get('/test', (req, res)=>{
+    res.send('express启动完成');
+})
 
 let dbo;
 // MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {

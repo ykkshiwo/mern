@@ -4,7 +4,7 @@ SourceMapSupport.install();
 import http from 'http';
 
 import { MongoClient } from 'mongodb';
-
+ 
 let appModule = require('./server.js');
 let dbo;
 let server;
@@ -26,7 +26,7 @@ if (module.hot) {
     module.hot.accept('./server.js', () => {
         server.removeListener('request', appModule.app);
         appModule = require('./server.js');     // eslint-disable-line
-        appModule.setDb(db);
+        appModule.setDb(dbo);
         server.on('request', appModule.app);
     });
 }

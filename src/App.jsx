@@ -11,7 +11,7 @@ import IssueList from './IssueList.jsx';
 import IssueAddNavItem from './IssueAddNavItem.jsx';
 import IssueReport from './IssueReport.jsx';
 
-const contentNode = document.getElementById("contents");
+// const contentNode = document.getElementById("contents");
 const NoMatch = () => <p>Pagee Not Found</p>;
 
 const Header = () => (

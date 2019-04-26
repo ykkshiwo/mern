@@ -10,11 +10,11 @@ export default class ContextWrapper extends React.Component {
   }
 }
 
-ContextWrapper.childContextTypes = {
-  initialState: React.PropTypes.object,
-};
+// ContextWrapper.childContextTypes = {
+//   initialState: React.PropTypes.object,
+// };
 
-ContextWrapper.propTypes = {
-  children: React.PropTypes.object.isRequired,
-  initialState: React.PropTypes.object,
-};
+// ContextWrapper.propTypes = {
+//   children: React.PropTypes.object.isRequired,
+//   initialState: React.PropTypes.object,
+// };

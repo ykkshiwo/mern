@@ -1,7 +1,7 @@
 // import IssueAdd from './IssueAdd.jsx'
-import IssueFilter from './IssueFilter.jsx'
-import React from 'react'
-import 'whatwg-fetch'
+import IssueFilter from './IssueFilter.jsx';
+import React from 'react';
+import 'isomorphic-fetch';
 import { Link, } from 'react-router-dom';
 import { Button, Glyphicon, Table, Panel, Pagination } from 'react-bootstrap';
 const qs = require('query-string');

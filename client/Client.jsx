@@ -9,9 +9,7 @@ import ContextWrapper from '../src/ContextWrapper.jsx';
 
 const WrappedApp = (props) => (
     <ContextWrapper {...props}>
-        < BrowserRouter >
             {routes}
-        </BrowserRouter>
     </ContextWrapper>
 );
 
