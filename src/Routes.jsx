@@ -10,27 +10,29 @@ import IssueEdit from './IssueEdit.jsx';
 import IssueReport from './IssueReport.jsx';
 
 const NoMatch = () => <p>Page Not Found</p>;
+// const test = () => <p>Page is test</p>;
 
 export default (
-    <BrowserRouter>
-        <Route exact path="/" render={() =>
-            <Redirect to={'/issues'}></Redirect>}>
-        </Route>
-        <App>
-            <Switch>
-                <Route exact path='/issues' component={IssueList} />
-                <Route exact path='/reports' component={IssueReport} />
-                <Route exact path='/issues/:id' component={IssueEdit} />
-                <Route component={NoMatch} />
-            </Switch>
-        </App>
-    </BrowserRouter>
-    // <App>
-    //     <Switch>
-    //         <Route exact path='/issues' component={IssueList} />
-    //         <Route exact path='/reports' component={IssueReport} />
-    //         <Route exact path='/issues/:id' component={IssueEdit} />
-    //         <Route component={NoMatch} />
-    //     </Switch>
-    // </App>
+    // <BrowserRouter>
+    //     <Route exact path="/" render={() =>
+    //         <Redirect to={'/issues'}></Redirect>}>
+    //     </Route>
+    //     <App>
+    //         <Switch>
+    //             <Route exact path='/issues' component={IssueList} />
+    //             <Route exact path='/reports' component={IssueReport} />
+    //             <Route exact path='/issues/:id' component={IssueEdit} />
+    //             <Route component={NoMatch} />
+    //         </Switch>
+    //     </App>
+    // </BrowserRouter>
+    <App>
+        <Switch>
+            <Route exact path='/issues' component={IssueList} />
+            <Route exact path='/reports' component={IssueReport} />
+            <Route exact path='/issues/:id' component={IssueEdit} />
+            <Route exact path='/test' component={test} ></Route>
+            <Route component={NoMatch} />
+        </Switch>
+    </App>
 );
