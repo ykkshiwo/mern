@@ -31,7 +31,6 @@ export default (
             <Route exact path='/issues' component={IssueList} />
             <Route exact path='/reports' component={IssueReport} />
             <Route exact path='/issues/:id' component={IssueEdit} />
-            <Route exact path='/test' component={test} ></Route>
             <Route component={NoMatch} />
         </Switch>
     </App>

@@ -1,0 +1,2 @@
+exports.id=0,exports.modules={20:function(e,t,o){"use strict";Object.defineProperty(t,"__esModule",{value:!0});l(o(0)),o(21),o(22);var n=l(o(5));l(o(23)),l(o(24)),l(o(32)),o(1);function l(e){return e&&e.__esModule?e:{default:e}}var u=new n.default;u.get("*",function(e,t){console.log("服务器启用成功"),console.log("http://127.0.0.1:3000/api"+e.url),fetch("http://127.0.0.1:3000/api"+e.url).then(function(e){console.log("从服务器返回的数据：",e.json())}),t.send("test now...")}),t.default=u}};
+//# sourceMappingURL=0.065f50d2bde4df113e5e.hot-update.js.map

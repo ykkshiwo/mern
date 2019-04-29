@@ -175,15 +175,7 @@ app.delete('/api/issues/:id', (req, res) => {
         });
 });
 
-// app.get('*', (req, res) => {
-//     res.send('success');
-//     res.sendFile(path.resolve('../statics/index.html'));
-// })
-
-app.get('/fwq', renderedPageRouter);
-// app.get('/test', (req, res)=>{
-//     res.send('express启动完成');
-// })
+app.use('/', renderedPageRouter);
 
 let dbo;
 // MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {

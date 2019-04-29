@@ -9,11 +9,11 @@ const test1 = () => <p>Page is test1</p>;
 
 class test2 extends React.Component {
 
-    constructor(props, context) {
-        super(props, context);
-        console.log("context的值是：", context.context);
+    constructor(props) {
+        super(props);
+        console.log("props的值是：", this.props.staticContext);
         this.state = {
-            issues: context,
+            issues: this.props.staticContext.a,
             //   totalCount: data.metadata.totalCount,
         };
     }
@@ -22,7 +22,7 @@ class test2 extends React.Component {
         return (
             <div>
                 {/* <button>{this.state.issues}</button> */}
-                <button>hello</button>
+                <button>{this.state.issues}</button>
             </div>
         )
     }
@@ -36,7 +36,7 @@ createServer((req, res) => {
             {/* <button>hello</button> */}
             <Route exact path='/fwq' component={test} />
             <Route exact path='/fwq1' component={test1} />
-            <Route exact path='/fwq2' component={test2} />
+            <Route exact path='/fwq2' component={test2} {...context}/>
         </StaticRouter>
     );
 
