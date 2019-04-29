@@ -181,9 +181,9 @@ app.delete('/api/issues/:id', (req, res) => {
 // })
 
 app.get('/fwq', renderedPageRouter);
-app.get('/test', (req, res)=>{
-    res.send('express启动完成');
-})
+// app.get('/test', (req, res)=>{
+//     res.send('express启动完成');
+// })
 
 let dbo;
 // MongoClient.connect('mongodb://127.0.0.1:27017/').then(db => {
