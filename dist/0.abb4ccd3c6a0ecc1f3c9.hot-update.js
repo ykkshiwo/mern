@@ -1,0 +1,2 @@
+exports.id=0,exports.modules={20:function(e,o,l){"use strict";Object.defineProperty(o,"__esModule",{value:!0});c(l(0)),l(21);var t=l(22),u=c(l(5)),n=(c(l(23)),c(l(24)));c(l(32));function c(e){return e&&e.__esModule?e:{default:e}}var s=new u.default;s.get("*",function(e,o){console.log("服务器启用成功"),console.log(e.url),console.log(n.default),(0,t.match)(),console.log("match函数是有用的")}),o.default=s}};
+//# sourceMappingURL=0.abb4ccd3c6a0ecc1f3c9.hot-update.js.map

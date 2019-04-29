@@ -1,10 +1,10 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { matchPath, RouterContext } from 'react-router';
+import { RouterContext, match } from 'react-router';
 
 import Router from 'express';
 
-import template from './template.js';
+import template from './template.js'; 
 import routes from '../src/Routes.jsx';
 import ContextWrapper from '../src/ContextWrapper.jsx';
  
@@ -14,7 +14,7 @@ renderedPageRouter.get('*', (req, res) => {
   console.log("服务器启用成功");
   console.log(req.url);
   console.log(routes);
-  matchPath({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (redirectLocation) {
