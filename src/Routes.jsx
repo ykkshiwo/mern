@@ -13,19 +13,6 @@ const NoMatch = () => <p>Page Not Found</p>;
 // const test = () => <p>Page is test</p>;
 
 export default (
-    // <BrowserRouter>
-    //     <Route exact path="/" render={() =>
-    //         <Redirect to={'/issues'}></Redirect>}>
-    //     </Route>
-    //     <App>
-    //         <Switch>
-    //             <Route exact path='/issues' component={IssueList} />
-    //             <Route exact path='/reports' component={IssueReport} />
-    //             <Route exact path='/issues/:id' component={IssueEdit} />
-    //             <Route component={NoMatch} />
-    //         </Switch>
-    //     </App>
-    // </BrowserRouter>
     <App>
         <Switch>
             <Route exact path='/issues' component={IssueList} />
