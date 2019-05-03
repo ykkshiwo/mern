@@ -8,6 +8,7 @@ const qs = require('query-string');
 
 const IssueRow = (props) => {
     function onDeleteClick() {
+        console.log("删除成功");
         props.deleteIssue(props.issue._id);
     }
 
@@ -16,19 +17,21 @@ const IssueRow = (props) => {
             <td><Link to={`/issues/${props.issue._id}`}>{props.issue._id.substr(-4)}</Link></td>
             <td>{props.issue.status}</td>
             <td>{props.issue.owner}</td>
-            <td>{props.issue.created.toDateString()}</td>
+            {/* <td>{props.issue.created.toDateString()}</td> */}
             <td>{props.issue.effort}</td>
-            <td>{props.issue.completionDate ? props.issue.completionDate.toDateString() : ''}</td>
+            {/* <td>{props.issue.completionDate ? props.issue.completionDate.toDateString() : ''}</td> */}
             <td>{props.issue.title}</td>
+            {/* <td>
+                <span onClick={onDeleteClick} className="glyphicon Glyphicon-trash"></span>
+            </td> */}
             <td>
-                <span onClick={onDeleteClick} className="glyphicon glyphicon-trash"></span>
+                <Button onClick={onDeleteClick}>test</Button>
             </td>
         </tr>
     );
 };
 
 function IssueTable(props) {
-    console.log("问题渲染的数据： ", this.props.issues);
     const IssueRows = props.issues.map(issue => <IssueRow key={issue._id} issue={issue} deleteIssue={props.deleteIssue} />);
     return (
         <Table condensed hover responsive bordered>
@@ -99,7 +102,7 @@ export default class IssueList extends React.Component {
 
         // this.setFilter = this.setFilter.bind(this);
         // this.selectPage = this.selectPage.bind(this);
-        // this.deleteIssue = this.deleteIssue.bind(this);
+        this.deleteIssue = this.deleteIssue.bind(this);
     }
 
     // selectPage(eventKey) {
@@ -107,17 +110,17 @@ export default class IssueList extends React.Component {
     //     this.props.router.push({ pathname: this.props.location.pathname, query });
     // }
 
-    // deleteIssue(id) {
-    //     console.log("user want to delelte me```");
-    //     fetch(`/api/issues/${id}`, { method: 'DELETE' }).then(response => {
-    //         console.log("the response data is: ", response);
-    //         if (!response.ok) this.props.showError('Failed to delete issue');
-    //         else {
-    //             console.log("start loaddata```")
-    //             this.loadData(this.props.location.search);
-    //         }
-    //     });
-    // }
+    deleteIssue(id) {
+        console.log("user want to delelte me```");
+        fetch(`/api/issues/${id}`, { method: 'DELETE' }).then(response => {
+            console.log("the response data is: ", response);
+            if (!response.ok) this.props.showError('Failed to delete issue');
+            else {
+                console.log("start loaddata```")
+                this.loadData(this.props.location.search);
+            }
+        });
+    }
 
     // componentDidMount() {
     //     console.log("开始执行请求函数");
@@ -144,35 +147,35 @@ export default class IssueList extends React.Component {
     //     console.log("this.props.history is 2: ", this.props.history);
     // };
 
-    // loadData(q) {
-    //     console.log("开始请求原始数据");
-    //     console.log(this.props.location);
-    //     console.log("qqqqqq: ", q);
-    //     fetch(`/api/issues${q}`).then(response => {
-    //         console.log("原始数据请求成功: ", response);
-    //         if (response.ok) {
-    //             console.log("返回的response数据是： ", response);
-    //             response.json().then(data => {
-    //                 console.log("请求的数据调回: ", data);
-    //                 // console.log(data._metadata.total_count);
-    //                 data.records.forEach(issue => {
-    //                     issue.created = new Date(issue.created);
-    //                     if (issue.completionDate) {
-    //                         issue.completionDate = new Date(issue.completionDate);
-    //                     }
-    //                 });
-    //                 console.log("最后需要渲染的数据数据:", data.records);
-    //                 this.setState({ issues: data.records });
-    //             });
-    //         } else {
-    //             response.json().then(error => {
-    //                 alert("Failed");
-    //             })
-    //         }
-    //     }).catch(err => {
-    //         alert("Error")
-    //     });
-    // }
+    loadData(q) {
+        console.log("开始请求原始数据");
+        console.log(this.props.location);
+        console.log("qqqqqq: ", q);
+        fetch(`/api/issues${q}`).then(response => {
+            console.log("原始数据请求成功: ", response);
+            if (response.ok) {
+                console.log("返回的response数据是： ", response);
+                response.json().then(data => {
+                    console.log("请求的数据调回: ", data);
+                    // console.log(data._metadata.total_count);
+                    data.records.forEach(issue => {
+                        issue.created = new Date(issue.created);
+                        if (issue.completionDate) {
+                            issue.completionDate = new Date(issue.completionDate);
+                        }
+                    });
+                    console.log("最后需要渲染的数据数据:", data.records);
+                    this.setState({ issues: data.records });
+                });
+            } else {
+                response.json().then(error => {
+                    alert("Failed");
+                })
+            }
+        }).catch(err => {
+            alert("Error")
+        });
+    }
 
     // createIssue(newIssue) {
     //     console.log("触发post请求");
@@ -203,11 +206,12 @@ export default class IssueList extends React.Component {
                 <h1>This is ykk's place.</h1>
                 {/* <Panel header='Filter'>
                     <IssueFilter setFilter={this.setFilter} choosePars={this.choosePars} initFilter={this.props.location.search} />
-                </Panel>
+                </Panel> */}
                 <IssueTable issues={this.state.issues} deleteIssue={this.deleteIssue} />
-                <hr /> */}
+                <hr />
                 {/* <IssueAdd createIssue={this.createIssue} /> */}
-                {JSON.stringify(this.state.issues)}
+                {/* {JSON.stringify(this.state.issues)} */}
+                <button onClick={console.log("nimei de")}>test</button>
             </div>
         )
     }

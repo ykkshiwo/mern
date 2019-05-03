@@ -7,7 +7,7 @@ const mn = require('mongodb');
 const Issue = require('./issue.js');
 
 const app = express();
-app.use(express.static('statics'));  //使用钩子函数后根目录是d://mern
+app.use('/static', express.static('statics'));  //使用钩子函数后根目录是d://mern
 app.use(express.static('../node_modules/bootstrap/dist/css/'));
 app.use(bodyParser.json());
 
